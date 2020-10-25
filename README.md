@@ -3,6 +3,7 @@
 Creates a simple skeleton animation that can be used on android, iOS and the web.
 
 <p>
+  <img src="https://github.com/wjtje/flutter-skeleton-animation/blob/master/screenshots/list-view.gif?raw=true"/>
 </p>
 
 # How to use
