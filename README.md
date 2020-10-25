@@ -1,5 +1,7 @@
 # skeleton_animation
 
+![Pub Version](https://img.shields.io/pub/v/skeleton_animation)
+
 Creates a simple skeleton animation that can be used on android, iOS and the web.
 
 <p>
