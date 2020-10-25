@@ -8,21 +8,24 @@ library skeleton_animation;
 import 'package:flutter/material.dart';
 
 /// Creates a simple skeleton animation
-/// 
+///
 /// The default colors works great in light mode but you need to changes them for dark mode.
-/// 
+///
 /// If you want it to look like text you can use [width] of 200,
 /// a [height] of 12 and a [radius] of Radius.circular(6)
 class SkeletonAnimation extends StatefulWidget {
   /// The background color for the skeleton
   final Color baseColor;
+
   /// The hightlight color for the skeleton
   final Color hightlightColor;
 
   /// The width of the skeleton
   final double width;
+
   /// The height of the skeleton
   final double height;
+
   /// The radius of the skeleton
   final Radius radius;
 
@@ -41,7 +44,8 @@ class SkeletonAnimation extends StatefulWidget {
   _SkeletonAnimationState createState() => _SkeletonAnimationState();
 }
 
-class _SkeletonAnimationState extends State<SkeletonAnimation> with SingleTickerProviderStateMixin {
+class _SkeletonAnimationState extends State<SkeletonAnimation>
+    with SingleTickerProviderStateMixin {
   AnimationController _controller;
 
   @override
@@ -53,13 +57,13 @@ class _SkeletonAnimationState extends State<SkeletonAnimation> with SingleTicker
       vsync: this,
       duration: Duration(seconds: 2),
     )..addStatusListener((AnimationStatus status) {
-      if (status != AnimationStatus.completed) {
-        return;
-      }
+        if (status != AnimationStatus.completed) {
+          return;
+        }
 
-      // Restart the animation when done
-      _controller.repeat();
-    });
+        // Restart the animation when done
+        _controller.repeat();
+      });
 
     // Start the animation
     _controller.forward();
@@ -84,18 +88,9 @@ class _SkeletonAnimationState extends State<SkeletonAnimation> with SingleTicker
             ],
             stops: [
               // Animate using the controller value (0 - 1)
-              _generateValue(
-                percentage: _controller.value,
-                value: 0.35
-              ),
-              _generateValue(
-                percentage: _controller.value,
-                value: 0.5
-              ),
-              _generateValue(
-                percentage: _controller.value,
-                value: 0.65
-              ),
+              _generateValue(percentage: _controller.value, value: 0.35),
+              _generateValue(percentage: _controller.value, value: 0.5),
+              _generateValue(percentage: _controller.value, value: 0.65),
             ],
           ),
         ),
@@ -111,7 +106,7 @@ class _SkeletonAnimationState extends State<SkeletonAnimation> with SingleTicker
 
   /// Generate the value for the loading animation
   double _generateValue({percentage: double, value: double}) {
-    double tmp = (percentage*1.3)-0.65+value;
+    double tmp = (percentage * 1.3) - 0.65 + value;
 
     if (tmp < 0) {
       return 0;

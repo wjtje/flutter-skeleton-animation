@@ -1,8 +1,7 @@
 name: skeleton_animation
 description: Display a skeleton animation in your app.
 version: 0.0.1
-author: wjtje
-homepage: https://www.wjtje.ga
+repository: https://github.com/wjtje/flutter-skeleton-animation
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
