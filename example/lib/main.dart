@@ -14,29 +14,27 @@ class MyApp extends StatelessWidget {
           title: Text('Skeleton animation'),
         ),
         body: Container(
-          padding: EdgeInsets.symmetric(horizontal: 16.0),
-          child: CustomScrollView(
-            slivers: [
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, i) => ListTile(
-                    title: SkeletonAnimation(
-                      width: 200,
-                      height: 14,
-                      radius: Radius.circular(6),
-                    ),
-                    subtitle: SkeletonAnimation(
-                      width: 200,
-                      height: 10,
-                      radius: Radius.circular(6),
-                    ),
-                  ),
-                  childCount: 20
-                ),
-              )
-            ],
-          )
-        ),
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            child: CustomScrollView(
+              slivers: [
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                      (context, i) => ListTile(
+                            title: Skeleton(
+                              width: 200,
+                              height: 14,
+                              radius: Radius.circular(6),
+                            ),
+                            subtitle: Skeleton(
+                              width: 200,
+                              height: 10,
+                              radius: Radius.circular(6),
+                            ),
+                          ),
+                      childCount: 20),
+                )
+              ],
+            )),
       ),
     );
   }
