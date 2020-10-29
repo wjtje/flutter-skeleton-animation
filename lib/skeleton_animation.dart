@@ -37,9 +37,8 @@ class Skeleton extends StatefulWidget {
 
   Skeleton(
       {
-      // TODO: choose correct color for the theme thats active
       // Use default colors
-      this.baseColor = const Color(0xFFE3E3E3),
+      this.baseColor,
       this.hightlightColor = const Color(0xFFF4F4F4),
       // Use default size
       this.width = 200.0,
@@ -108,6 +107,12 @@ class _SkeletonState extends State<Skeleton>
 
   @override
   Widget build(BuildContext context) {
+    // Get the correct text color and calculate the correct opcity
+    Color _themeTextColor = Theme.of(context).textTheme.bodyText1.color;
+    double _themeOpacity = Theme.of(context).brightness == Brightness.light ? 0.11 : 0.13;
+    // Generate the correct color
+    Color _baseColor = (widget.baseColor == null) ? Color.alphaBlend(_themeTextColor.withOpacity(_themeOpacity), Theme.of(context).scaffoldBackgroundColor) : widget.baseColor;
+
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, child) => Container(
@@ -117,18 +122,17 @@ class _SkeletonState extends State<Skeleton>
           borderRadius: BorderRadius.all(widget.radius),
           // Import the correct animation
           color: (widget.animation == SkeletonAnimation.pulse)
-              ? widget.baseColor
-                  .withAlpha((_controller.value * 255).toInt()) // Pulse
-              : widget.baseColor, // None
+              ? _baseColor.withOpacity(_controller.value) // Pulse
+              : _baseColor, // None
           gradient: (widget.animation == SkeletonAnimation.wave)
               ? LinearGradient(
                   // Wave
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [
-                    widget.baseColor,
+                    _baseColor,
                     widget.hightlightColor,
-                    widget.baseColor,
+                    _baseColor,
                   ],
                   stops: [
                     // Animate using the controller value (0 - 1)

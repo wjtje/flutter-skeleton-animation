@@ -36,6 +36,8 @@ class MyApp extends StatelessWidget {
               ],
             )),
       ),
+      // enable dark mode
+      darkTheme: ThemeData(brightness: Brightness.dark),
     );
   }
 }

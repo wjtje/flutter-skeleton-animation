@@ -5,7 +5,8 @@
 Creates a simple skeleton animation that can be used on android, iOS and the web.
 
 <p>
-  <img src="https://github.com/wjtje/flutter-skeleton-animation/blob/master/screenshots/list-view.gif?raw=true"/>
+  <img src="https://github.com/wjtje/flutter-skeleton-animation/blob/master/screenshots/dark_mode.gif?raw=true"/>
+  <img src="https://github.com/wjtje/flutter-skeleton-animation/blob/master/screenshots/light_mode.gif?raw=true"/>
 </p>
 
 # How to use
