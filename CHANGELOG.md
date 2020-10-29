@@ -1,4 +1,4 @@
-## [0.0.3] - FIxed issues
+## [0.0.3] - Fixed issues
 
 * Fixed dark mode
 
