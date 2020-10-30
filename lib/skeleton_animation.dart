@@ -8,13 +8,15 @@ library skeleton_animation;
 import 'package:flutter/material.dart';
 
 /// Different animations for the skeleton object
-/// 
+///
 /// Default is the pulse animation
 enum SkeletonAnimation {
   /// Static color
   none,
+
   /// Simple fadeing animation
   pulse,
+
   /// Wave animation (Work in progress)
   wave
 }
@@ -119,9 +121,13 @@ class _SkeletonState extends State<Skeleton>
   Widget build(BuildContext context) {
     // Get the correct text color and calculate the correct opcity
     Color _themeTextColor = Theme.of(context).textTheme.bodyText1.color;
-    double _themeOpacity = Theme.of(context).brightness == Brightness.light ? 0.11 : 0.13;
+    double _themeOpacity =
+        Theme.of(context).brightness == Brightness.light ? 0.11 : 0.13;
     // Generate the correct color
-    Color _baseColor = (widget.baseColor == null) ? Color.alphaBlend(_themeTextColor.withOpacity(_themeOpacity), Theme.of(context).scaffoldBackgroundColor) : widget.baseColor;
+    Color _baseColor = (widget.baseColor == null)
+        ? Color.alphaBlend(_themeTextColor.withOpacity(_themeOpacity),
+            Theme.of(context).scaffoldBackgroundColor)
+        : widget.baseColor;
 
     return AnimatedBuilder(
       animation: _controller,
