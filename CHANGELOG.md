@@ -1,6 +1,7 @@
 ## [0.0.3] - Fixed issues
 
 * Fixed dark mode
+* Added default styling options
 
 ## [0.0.2] - New Animatios
 
