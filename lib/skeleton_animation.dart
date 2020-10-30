@@ -7,7 +7,17 @@ library skeleton_animation;
 
 import 'package:flutter/material.dart';
 
-enum SkeletonAnimation { none, pulse, wave }
+/// Different animations for the skeleton object
+/// 
+/// Default is the pulse animation
+enum SkeletonAnimation {
+  /// Static color
+  none,
+  /// Simple fadeing animation
+  pulse,
+  /// Wave animation (Work in progress)
+  wave
+}
 
 /// Creates a simple skeleton animation
 ///
