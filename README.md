@@ -17,9 +17,7 @@ import 'package:skeleton_animation/skeleton_animation.dart';
 
 ```dart
 Skeleton(
-  width: 200,
   height: 12,
-  radius: Radius.circular(6),
-  animation: SkeletonAnimation.pulse
+  style: SkeletonStyle.text
 ),
 ```

@@ -21,6 +21,8 @@ enum SkeletonAnimation {
   wave
 }
 
+enum SkeletonStyle { box, circle, text }
+
 /// Creates a simple skeleton animation
 ///
 /// The default colors works great in light mode but you need to changes them for dark mode.
@@ -38,14 +40,17 @@ class Skeleton extends StatefulWidget {
   final double width;
 
   /// The height of the skeleton
+  ///
+  /// Height is ignored if the [style] is SkeletonStyle.circle
   final double height;
-
-  /// The radius of the skeleton
-  final Radius radius;
 
   /// Choose your style of animaion.
   /// The default is SkeletonAnimation.pulse
   final SkeletonAnimation animation;
+
+  /// Choose your look of the skeleton
+  /// The default is SkeletonStyle.box
+  final SkeletonStyle style;
 
   Skeleton(
       {
@@ -55,10 +60,10 @@ class Skeleton extends StatefulWidget {
       // Use default size
       this.width = 200.0,
       this.height = 60.0,
-      // Use default radius
-      this.radius = const Radius.circular(0),
       // Use the default animation
-      this.animation = SkeletonAnimation.pulse});
+      this.animation = SkeletonAnimation.pulse,
+      // Use the default style
+      this.style = SkeletonStyle.box});
 
   @override
   _SkeletonState createState() => _SkeletonState();
@@ -133,9 +138,19 @@ class _SkeletonState extends State<Skeleton>
       animation: _controller,
       builder: (context, child) => Container(
         width: widget.width,
-        height: widget.height,
+        height: (widget.style == SkeletonStyle.circle)
+            ? widget.width
+            : widget.height,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(widget.radius),
+          // Choose the correct border radius
+          // box: none
+          // text: 4
+          // circle: widget.width / 2
+          borderRadius: (widget.style == SkeletonStyle.box)
+              ? BorderRadius.zero
+              : (widget.style == SkeletonStyle.text)
+                  ? BorderRadius.all(Radius.circular(4))
+                  : BorderRadius.all(Radius.circular(widget.width / 2)),
           // Import the correct animation
           color: (widget.animation == SkeletonAnimation.pulse)
               ? _baseColor.withOpacity(_controller.value) // Pulse

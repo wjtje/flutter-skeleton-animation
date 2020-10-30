@@ -21,15 +21,14 @@ class MyApp extends StatelessWidget {
                   delegate: SliverChildBuilderDelegate(
                       (context, i) => ListTile(
                             title: Skeleton(
-                              width: 200,
-                              height: 14,
-                              radius: Radius.circular(6),
+                              style: SkeletonStyle.text,
+                              height: 14.0,
                             ),
                             subtitle: Skeleton(
-                              width: 200,
-                              height: 10,
-                              radius: Radius.circular(6),
+                              style: SkeletonStyle.text,
+                              height: 10.0,
                             ),
+                            onTap: () {},
                           ),
                       childCount: 20),
                 )
