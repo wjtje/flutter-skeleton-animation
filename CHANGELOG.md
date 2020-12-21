@@ -1,10 +1,12 @@
-## [0.1.0] - Background color fix / Border support
+## [0.1.1] - Border support
+* Added support for borders
+
+## [0.1.0] - Background color fix
 
 * Added a option to set the parent background color
 * Removed wave animation
 * Removed hightlightColor
 * Changed baseColor to textColor
-* Added support for borders
 
 ## [0.0.3] - Fixed issues
 
