@@ -21,7 +21,17 @@ enum SkeletonAnimation {
   wave
 }
 
-enum SkeletonStyle { box, circle, text }
+/// Different styles of the skeleton
+enum SkeletonStyle {
+  /// A simple box
+  box,
+
+  /// A simple circle
+  circle,
+
+  /// A box with rounded corners
+  text
+}
 
 /// Creates a simple skeleton animation
 ///
@@ -131,7 +141,7 @@ class _SkeletonState extends State<Skeleton>
     // Generate the correct color
     Color _baseColor = (widget.baseColor == null)
         ? Color.alphaBlend(_themeTextColor.withOpacity(_themeOpacity),
-            Theme.of(context).scaffoldBackgroundColor)
+            Colors.blue)
         : widget.baseColor;
 
     return AnimatedBuilder(
