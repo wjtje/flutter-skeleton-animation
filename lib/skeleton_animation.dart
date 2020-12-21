@@ -15,10 +15,7 @@ enum SkeletonAnimation {
   none,
 
   /// Simple fadeing animation
-  pulse,
-
-  /// Wave animation (Work in progress)
-  wave
+  pulse
 }
 
 /// Different styles of the skeleton
@@ -40,11 +37,15 @@ enum SkeletonStyle {
 /// If you want it to look like text you can use [width] of 200,
 /// a [height] of 12 and a [radius] of Radius.circular(6)
 class Skeleton extends StatefulWidget {
-  /// The background color for the skeleton
-  final Color baseColor;
+  /// The text color
+  final Color textColor;
 
-  /// The hightlight color for the skeleton
-  final Color hightlightColor;
+  /// The background color of the parrent
+  ///
+  /// If this is empty the skeleton will use the default white (or dark) background.
+  /// But if you are using a diffent color background please set this to the correct colour to make sure the animation is displaying currently.
+
+  final Color parentBackgroundColor;
 
   /// The width of the skeleton
   final double width;
@@ -71,8 +72,8 @@ class Skeleton extends StatefulWidget {
   Skeleton(
       {
       // Use default colors
-      this.baseColor,
-      this.hightlightColor = const Color(0xFFF4F4F4),
+      this.textColor,
+      this.parentBackgroundColor,
       // Use default size
       this.width = 200.0,
       this.height = 60.0,
@@ -116,23 +117,6 @@ class _SkeletonState extends State<Skeleton>
 
       // Start the animation
       _controller.forward();
-    } else if (widget.animation == SkeletonAnimation.wave) {
-      // Create the wave animation
-      // TODO: Need to improve this animation
-      _controller = AnimationController(
-        vsync: this,
-        duration: Duration(milliseconds: 1500),
-      )..addStatusListener((AnimationStatus status) {
-          if (status != AnimationStatus.completed) {
-            return;
-          }
-
-          // Restart the animation when done
-          _controller.repeat();
-        });
-
-      // Start the animation
-      _controller.forward();
     } else {
       // Create a dummy animation
       _controller = AnimationController(
@@ -147,14 +131,18 @@ class _SkeletonState extends State<Skeleton>
     Color _themeTextColor = Theme.of(context).textTheme.bodyText1.color;
     double _themeOpacity =
         Theme.of(context).brightness == Brightness.light ? 0.11 : 0.13;
+    Color _parrentBackground = widget.parentBackgroundColor ??
+        Theme.of(context).scaffoldBackgroundColor;
     // Generate the correct color
     Color _baseColor = Color.alphaBlend(
         // Use the correct color
-        widget.baseColor ?? _themeTextColor.withOpacity(_themeOpacity),
-        Theme.of(context).scaffoldBackgroundColor);
+        widget.textColor ?? _themeTextColor.withOpacity(_themeOpacity),
+        _parrentBackground);
+
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, child) => Container(
+        // Get the correct with and height
         width: widget.width,
         height: (widget.style == SkeletonStyle.circle)
             ? widget.width
@@ -169,28 +157,10 @@ class _SkeletonState extends State<Skeleton>
               : (widget.style == SkeletonStyle.text)
                   ? BorderRadius.all(Radius.circular(4))
                   : BorderRadius.all(Radius.circular(widget.width / 2)),
-          // Import the correct animation
+          // Load the correct animation
           color: (widget.animation == SkeletonAnimation.pulse)
               ? _baseColor.withOpacity(_controller.value) // Pulse
               : _baseColor, // None
-          gradient: (widget.animation == SkeletonAnimation.wave)
-              ? LinearGradient(
-                  // Wave
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    _baseColor,
-                    widget.hightlightColor,
-                    _baseColor,
-                  ],
-                  stops: [
-                    // Animate using the controller value (0 - 1)
-                    _generateValue(percentage: _controller.value, value: 0.35),
-                    _generateValue(percentage: _controller.value, value: 0.5),
-                    _generateValue(percentage: _controller.value, value: 0.65),
-                  ],
-                )
-              : null,
           // Add the border
           border: Border.all(
               // Default there is no border
@@ -205,18 +175,5 @@ class _SkeletonState extends State<Skeleton>
   void dispose() {
     _controller.dispose();
     super.dispose();
-  }
-
-  /// Generate the value for the loading animation
-  double _generateValue({percentage: double, value: double}) {
-    double tmp = (percentage * 1.3) - 0.65 + value;
-
-    if (tmp < 0) {
-      return 0;
-    } else if (tmp > 1) {
-      return 1;
-    } else {
-      return tmp;
-    }
   }
 }
