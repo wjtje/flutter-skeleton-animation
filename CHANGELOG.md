@@ -1,3 +1,10 @@
+## [0.1.0] - Background color fix
+
+* Added a option to set the parent background color
+* Removed wave animation
+* Removed hightlightColor
+* Changed baseColor to textColor
+
 ## [0.0.3] - Fixed issues
 
 * Fixed dark mode
