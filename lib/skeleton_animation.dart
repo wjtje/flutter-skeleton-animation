@@ -62,6 +62,12 @@ class Skeleton extends StatefulWidget {
   /// The default is SkeletonStyle.box
   final SkeletonStyle style;
 
+  /// The color for the border
+  final Color borderColor;
+
+  /// This size of the border
+  final double borderSize;
+
   Skeleton(
       {
       // Use default colors
@@ -73,7 +79,10 @@ class Skeleton extends StatefulWidget {
       // Use the default animation
       this.animation = SkeletonAnimation.pulse,
       // Use the default style
-      this.style = SkeletonStyle.box});
+      this.style = SkeletonStyle.box,
+      // Add border support
+      this.borderColor,
+      this.borderSize = 1.0});
 
   @override
   _SkeletonState createState() => _SkeletonState();
@@ -182,6 +191,12 @@ class _SkeletonState extends State<Skeleton>
                   ],
                 )
               : null,
+          // Add the border
+          border: Border.all(
+            // Default there is no border
+            color: widget.borderColor ?? Color(0x00000000),
+            width: widget.borderSize
+          ),
         ),
       ),
     );

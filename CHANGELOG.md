@@ -1,3 +1,7 @@
+## [0.1.0] - Border support
+
+* Added support for borders
+
 ## [0.0.3] - Fixed issues
 
 * Fixed dark mode
