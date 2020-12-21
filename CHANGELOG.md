@@ -1,3 +1,6 @@
+## [0.1.0] - Background color fix
+
+* Added a option to set the parent background color
 ## [0.0.3] - Fixed issues
 
 * Fixed dark mode
