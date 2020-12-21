@@ -139,11 +139,10 @@ class _SkeletonState extends State<Skeleton>
     double _themeOpacity =
         Theme.of(context).brightness == Brightness.light ? 0.11 : 0.13;
     // Generate the correct color
-    Color _baseColor = (widget.baseColor == null)
-        ? Color.alphaBlend(_themeTextColor.withOpacity(_themeOpacity),
-            Colors.blue)
-        : widget.baseColor;
-
+    Color _baseColor = Color.alphaBlend(
+        // Use the correct color
+        widget.baseColor ?? _themeTextColor.withOpacity(_themeOpacity),
+        Theme.of(context).scaffoldBackgroundColor);
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, child) => Container(
