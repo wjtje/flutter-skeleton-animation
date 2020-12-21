@@ -46,6 +46,13 @@ class Skeleton extends StatefulWidget {
   /// The hightlight color for the skeleton
   final Color hightlightColor;
 
+  /// The background color of the parrent
+  ///
+  /// If this is empty the skeleton will use the default white (or dark) background.
+  /// But if you are using a diffent color background please set this to the correct colour to make sure the animation is displaying currently.
+
+  final Color parentBackgroundColor;
+
   /// The width of the skeleton
   final double width;
 
@@ -67,6 +74,7 @@ class Skeleton extends StatefulWidget {
       // Use default colors
       this.baseColor,
       this.hightlightColor = const Color(0xFFF4F4F4),
+      this.parentBackgroundColor,
       // Use default size
       this.width = 200.0,
       this.height = 60.0,
@@ -138,11 +146,12 @@ class _SkeletonState extends State<Skeleton>
     Color _themeTextColor = Theme.of(context).textTheme.bodyText1.color;
     double _themeOpacity =
         Theme.of(context).brightness == Brightness.light ? 0.11 : 0.13;
+    Color _parrentBackground = widget.parentBackgroundColor ??
+        Theme.of(context).scaffoldBackgroundColor;
     // Generate the correct color
-    Color _baseColor = (widget.baseColor == null)
-        ? Color.alphaBlend(_themeTextColor.withOpacity(_themeOpacity),
-            Colors.blue)
-        : widget.baseColor;
+    Color _baseColor = widget.baseColor ??
+        Color.alphaBlend(
+            _themeTextColor.withOpacity(_themeOpacity), _parrentBackground);
 
     return AnimatedBuilder(
       animation: _controller,

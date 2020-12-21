@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
         ),
         body: Container(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
+            color: Colors.blue.shade900,
             child: CustomScrollView(
               slivers: [
                 SliverList(
@@ -22,10 +23,12 @@ class MyApp extends StatelessWidget {
                       (context, i) => ListTile(
                             title: Skeleton(
                               style: SkeletonStyle.text,
+                              parentBackgroundColor: Colors.blue.shade900,
                               height: 14.0,
                             ),
                             subtitle: Skeleton(
                               style: SkeletonStyle.text,
+                              parentBackgroundColor: Colors.blue.shade900,
                               height: 10.0,
                             ),
                             onTap: () {},
