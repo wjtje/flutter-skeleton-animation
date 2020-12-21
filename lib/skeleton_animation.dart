@@ -193,10 +193,9 @@ class _SkeletonState extends State<Skeleton>
               : null,
           // Add the border
           border: Border.all(
-            // Default there is no border
-            color: widget.borderColor ?? Color(0x00000000),
-            width: widget.borderSize
-          ),
+              // Default there is no border
+              color: widget.borderColor ?? Color(0x00000000),
+              width: widget.borderSize),
         ),
       ),
     );
