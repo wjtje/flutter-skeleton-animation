@@ -24,7 +24,7 @@ enum SkeletonStyle {
   box,
 
   /// A simple circle
-  /// 
+  ///
   /// The width and height will be the same
   circle,
 
@@ -37,7 +37,7 @@ enum SkeletonStyle {
 /// The default settings work great on the default scaffoldBackgroundColor but
 /// if you are using a differtent color background please make sure that the
 /// [parentBackgroundColor] is set correctly.
-/// 
+///
 /// If you want the skeleton to look like text, you can use [SkeletonStyle.text]
 class Skeleton extends StatefulWidget {
   /// The text color
@@ -62,13 +62,16 @@ class Skeleton extends StatefulWidget {
   final SkeletonAnimation animation;
 
   /// Change the duration of the animation
-  /// 
+  ///
   /// For [SkeletonAnimation.pulse] it is 750 milliseconds
   final Duration animationDuration;
 
   /// Choose your look of the skeleton
-  /// The default is SkeletonStyle.box
+  /// The default is [SkeletonStyle.box]
   final SkeletonStyle style;
+
+  /// Add a border around the skeleton
+  final BoxBorder border;
 
   /// Choose a custom border radius
   final BorderRadiusGeometry borderRadius;
@@ -86,6 +89,8 @@ class Skeleton extends StatefulWidget {
       this.animationDuration,
       // Use the default style
       this.style = SkeletonStyle.box,
+      // Add border support
+      this.border,
       this.borderRadius});
 
   @override
@@ -106,7 +111,8 @@ class _SkeletonState extends State<Skeleton>
       _controller = AnimationController(
         // Use the correct duration
         duration: widget.animationDuration ?? Duration(milliseconds: 750),
-        reverseDuration: widget.animationDuration ?? Duration(milliseconds: 750),
+        reverseDuration:
+            widget.animationDuration ?? Duration(milliseconds: 750),
         // Default settings
         vsync: this,
         lowerBound: .4,
@@ -138,27 +144,28 @@ class _SkeletonState extends State<Skeleton>
         Theme.of(context).brightness == Brightness.light ? 0.11 : 0.13;
     Color _parrentBackground = widget.parentBackgroundColor ??
         Theme.of(context).scaffoldBackgroundColor;
-    
+
     // Generate the correct color
     Color _baseColor = Color.alphaBlend(
         // Use the correct color
         widget.textColor ?? _themeTextColor.withOpacity(_themeOpacity),
         _parrentBackground);
-    
+
     // Calculate the correct border radius
-    BorderRadiusGeometry _borderRadius = widget.borderRadius ?? () {
-      switch (widget.style) {
-        // A circle has have the width (50%) radius
-        case SkeletonStyle.circle:
-          return BorderRadius.all(Radius.circular(widget.width / 2));
-        // Text has 4px radius
-        case SkeletonStyle.text:
-          return BorderRadius.all(Radius.circular(4));
-        // Other styles has no radius
-        default:
-          return BorderRadius.zero;
-      }
-    }();
+    BorderRadiusGeometry _borderRadius = widget.borderRadius ??
+        () {
+          switch (widget.style) {
+            // A circle has have the width (50%) radius
+            case SkeletonStyle.circle:
+              return BorderRadius.all(Radius.circular(widget.width / 2));
+            // Text has 4px radius
+            case SkeletonStyle.text:
+              return BorderRadius.all(Radius.circular(4));
+            // Other styles has no radius
+            default:
+              return BorderRadius.zero;
+          }
+        }();
 
     return AnimatedBuilder(
       animation: _controller,
@@ -176,6 +183,8 @@ class _SkeletonState extends State<Skeleton>
           color: (widget.animation == SkeletonAnimation.pulse)
               ? _baseColor.withOpacity(_controller.value) // Pulse
               : _baseColor, // None
+          // Add the border
+          border: widget.border,
         ),
       ),
     );
