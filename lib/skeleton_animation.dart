@@ -67,14 +67,11 @@ class Skeleton extends StatefulWidget {
   final Duration animationDuration;
 
   /// Choose your look of the skeleton
-  /// The default is SkeletonStyle.box
+  /// The default is [SkeletonStyle.box]
   final SkeletonStyle style;
 
-  /// The color for the border
-  final Color borderColor;
-
-  /// This size of the border
-  final double borderSize;
+  /// Add a border around the skeleton
+  final BoxBorder border;
   
   /// Choose a custom border radius
   final BorderRadiusGeometry borderRadius;
@@ -93,8 +90,7 @@ class Skeleton extends StatefulWidget {
       // Use the default style
       this.style = SkeletonStyle.box,
       // Add border support
-      this.borderColor,
-      this.borderSize = 1.0,
+      this.border,
       this.borderRadius});
 
   @override
@@ -186,10 +182,7 @@ class _SkeletonState extends State<Skeleton>
               ? _baseColor.withOpacity(_controller.value) // Pulse
               : _baseColor, // None
           // Add the border
-          border: Border.all(
-              // Default there is no border
-              color: widget.borderColor ?? Color(0x00000000),
-              width: widget.borderSize),
+          border: widget.border,
         ),
       ),
     );
