@@ -1,6 +1,6 @@
 name: skeleton_animation
 description: Display skeleton animations in your app. It works on android, iOS and the web.
-version: 0.1.0
+version: 0.1.1
 repository: https://github.com/wjtje/flutter-skeleton-animation
 
 environment:

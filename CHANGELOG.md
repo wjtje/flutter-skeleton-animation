@@ -1,3 +1,9 @@
+## [0.1.1] - Small changes
+
+* Updated documentation
+* Added custom border radius
+* Able to change the animation duration
+
 ## [0.1.0] - Background color fix
 
 * Added a option to set the parent background color
