@@ -1,3 +1,8 @@
+## [0.1.2] - Text skeleton made easy
+
+* Added a TextSkeleton to display text
+* Added support for padding
+
 ## [0.1.1] - Small changes
 
 * Updated documentation

@@ -20,4 +20,10 @@ Skeleton(
   height: 12,
   style: SkeletonStyle.text
 ),
+
+// or
+
+SkeletonText(
+  height: 12
+)
 ```

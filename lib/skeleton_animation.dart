@@ -57,6 +57,9 @@ class Skeleton extends StatefulWidget {
   /// Height is ignored if the [style] is [SkeletonStyle.circle]
   final double height;
 
+  /// The padding of the object
+  final double padding;
+
   /// Choose your style of animaion.
   /// The default is [SkeletonAnimation.pulse]
   final SkeletonAnimation animation;
@@ -76,6 +79,9 @@ class Skeleton extends StatefulWidget {
   /// Choose a custom border radius
   final BorderRadiusGeometry borderRadius;
 
+  /// Everything could be null but we recommend changing the height and the style
+  ///
+  /// If you want to create a text skelelton you can use [SkeletonText]
   Skeleton(
       {
       // Use default colors
@@ -84,6 +90,7 @@ class Skeleton extends StatefulWidget {
       // Use default size
       this.width = 200.0,
       this.height = 60.0,
+      this.padding = 0,
       // Use the default animation
       this.animation = SkeletonAnimation.pulse,
       this.animationDuration,
@@ -167,24 +174,27 @@ class _SkeletonState extends State<Skeleton>
           }
         }();
 
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, child) => Container(
-        // Get the correct with and height
-        // If it's a circle the with and height will be the same
-        width: widget.width,
-        height: (widget.style == SkeletonStyle.circle)
-            ? widget.width
-            : widget.height,
-        decoration: BoxDecoration(
-          // Import the border radius
-          borderRadius: _borderRadius,
-          // Load the correct animation
-          color: (widget.animation == SkeletonAnimation.pulse)
-              ? _baseColor.withOpacity(_controller.value) // Pulse
-              : _baseColor, // None
-          // Add the border
-          border: widget.border,
+    return Padding(
+      padding: EdgeInsets.all(widget.padding ?? 0),
+      child: AnimatedBuilder(
+        animation: _controller,
+        builder: (context, child) => Container(
+          // Get the correct with and height
+          // If it's a circle the with and height will be the same
+          width: widget.width,
+          height: (widget.style == SkeletonStyle.circle)
+              ? widget.width
+              : widget.height,
+          decoration: BoxDecoration(
+            // Import the border radius
+            borderRadius: _borderRadius,
+            // Load the correct animation
+            color: (widget.animation == SkeletonAnimation.pulse)
+                ? _baseColor.withOpacity(_controller.value) // Pulse
+                : _baseColor, // None
+            // Add the border
+            border: widget.border,
+          ),
         ),
       ),
     );
@@ -194,5 +204,35 @@ class _SkeletonState extends State<Skeleton>
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+}
+
+/// A custom variant of the [Skeleton] made for displaying text
+///
+/// If you are using a different background or need a border
+/// please use the normal [Skeleton] for that
+class SkeletonText extends StatelessWidget {
+  /// The height of the text
+  final double height;
+
+  /// The padding of the object
+  final double padding;
+
+  /// It is required that you set the text correcty
+  ///
+  /// Examples:
+  ///
+  /// height: 12, padding: 2
+  ///
+  /// height: 24, padding: 4
+  const SkeletonText({@required this.height, this.padding});
+
+  @override
+  Widget build(BuildContext context) {
+    return Skeleton(
+      style: SkeletonStyle.text,
+      height: this.height,
+      padding: this.padding,
+    );
   }
 }
