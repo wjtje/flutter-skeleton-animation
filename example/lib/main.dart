@@ -35,7 +35,6 @@ class MyApp extends StatelessWidget {
                         title: Skeleton(
                           style: SkeletonStyle.text,
                           textColor: tileList[i][0],
-                          parentBackgroundColor: tileList[i][1],
                           height: 14.0,
                         ),
                         subtitle: Text(

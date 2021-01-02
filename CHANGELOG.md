@@ -1,3 +1,7 @@
+## [0.1.3] - Auto background color
+
+* The skeleton will now look good on any background color
+
 ## [0.1.2] - Text skeleton made easy
 
 * Added a TextSkeleton to display text
