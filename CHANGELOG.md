@@ -1,3 +1,7 @@
+## [0.1.4]
+
+* Migrate package to support null safety [Thanks to @sabifa](https://github.com/sabifa)
+
 ## [0.1.3] - Auto background color
 
 * The skeleton will now look good on any background color
