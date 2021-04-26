@@ -37,7 +37,7 @@ enum SkeletonStyle {
 /// If you want the skeleton to look like text, you can use [SkeletonStyle.text]
 class Skeleton extends StatefulWidget {
   /// The text color
-  final Color textColor;
+  final Color? textColor;
 
   /// The width of the skeleton
   final double width;
@@ -57,37 +57,37 @@ class Skeleton extends StatefulWidget {
   /// Change the duration of the animation
   ///
   /// For [SkeletonAnimation.pulse] it is 750 milliseconds
-  final Duration animationDuration;
+  final Duration? animationDuration;
 
   /// Choose your look of the skeleton
   /// The default is [SkeletonStyle.box]
   final SkeletonStyle style;
 
   /// Add a border around the skeleton
-  final BoxBorder border;
+  final BoxBorder? border;
 
   /// Choose a custom border radius
-  final BorderRadiusGeometry borderRadius;
+  final BorderRadiusGeometry? borderRadius;
 
   /// Everything could be null but we recommend changing the height and the style
   ///
   /// If you want to create a text skelelton you can use [SkeletonText]
-  Skeleton(
-      {
-      // Use default colors
-      this.textColor,
-      // Use default size
-      this.width = 200.0,
-      this.height = 60.0,
-      this.padding = 0,
-      // Use the default animation
-      this.animation = SkeletonAnimation.pulse,
-      this.animationDuration,
-      // Use the default style
-      this.style = SkeletonStyle.box,
-      // Add border support
-      this.border,
-      this.borderRadius});
+  Skeleton({
+    // Use default colors
+    this.textColor,
+    // Use default size
+    this.width = 200.0,
+    this.height = 60.0,
+    this.padding = 0,
+    // Use the default animation
+    this.animation = SkeletonAnimation.pulse,
+    this.animationDuration,
+    // Use the default style
+    this.style = SkeletonStyle.box,
+    // Add border support
+    this.border,
+    this.borderRadius,
+  });
 
   @override
   _SkeletonState createState() => _SkeletonState();
@@ -95,7 +95,7 @@ class Skeleton extends StatefulWidget {
 
 class _SkeletonState extends State<Skeleton>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+  late AnimationController _controller;
 
   @override
   void initState() {
@@ -135,7 +135,7 @@ class _SkeletonState extends State<Skeleton>
   @override
   Widget build(BuildContext context) {
     // Get the correct text color and calculate the correct opcity
-    Color _themeTextColor = Theme.of(context).textTheme.bodyText1.color;
+    Color _themeTextColor = Theme.of(context).textTheme.bodyText1!.color!;
     double _themeOpacity =
         Theme.of(context).brightness == Brightness.light ? 0.11 : 0.13;
 
@@ -156,7 +156,7 @@ class _SkeletonState extends State<Skeleton>
         }();
 
     return Padding(
-      padding: EdgeInsets.all(widget.padding ?? 0),
+      padding: EdgeInsets.all(widget.padding),
       child: AnimatedBuilder(
         animation: _controller,
         builder: (context, child) => Opacity(
@@ -211,7 +211,10 @@ class SkeletonText extends StatelessWidget {
   /// height: 12, padding: 1
   ///
   /// height: 24, padding: 2
-  const SkeletonText({@required this.height, this.padding});
+  const SkeletonText({
+    required this.height,
+    this.padding = 0,
+  });
 
   @override
   Widget build(BuildContext context) {
